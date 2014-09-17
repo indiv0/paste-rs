@@ -1,0 +1,13 @@
+[package]
+
+name = "paste"
+version = "0.0.0"
+authors = [ "Nikita Pekin <contact@nikitapek.in>" ]
+
+[[bin]]
+
+name = "paste"
+
+[dependencies.iron]
+
+git = "https://github.com/iron/iron"
