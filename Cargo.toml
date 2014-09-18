@@ -11,3 +11,7 @@ name = "paste"
 [dependencies.iron]
 
 git = "https://github.com/iron/iron"
+
+[dependencies.redis-rs]
+
+git = "https://github.com/mitsuhiko/redis-rs"
