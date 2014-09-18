@@ -4,6 +4,7 @@ version = "0.0.0"
 dependencies = [
  "iron 0.0.1 (git+https://github.com/iron/iron#7029d377d23e20dbc4666e6fd7785a9390ff2a39)",
  "redis-rs 0.2.0 (git+https://github.com/mitsuhiko/redis-rs#05eb503ccfe3b46e023fbe9919d5c94debd16402)",
+ "url 0.1.0 (git+https://github.com/servo/rust-url#bfdf809365600a7941a77524f9bb065886de3379)",
 ]
 
 [[package]]

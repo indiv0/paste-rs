@@ -15,3 +15,7 @@ git = "https://github.com/iron/iron"
 [dependencies.redis-rs]
 
 git = "https://github.com/mitsuhiko/redis-rs"
+
+[dependencies.url]
+
+git = "https://github.com/servo/rust-url"

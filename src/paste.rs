@@ -1,8 +1,10 @@
 extern crate iron;
+extern crate redis;
 extern crate time;
 extern crate typemap;
 
 use std::io::net::ip::Ipv4Addr;
+use std::str::from_utf8;
 use iron::status;
 use iron::{
     AfterMiddleware,
@@ -18,10 +20,28 @@ use time::precise_time_ns;
 use typemap::Assoc;
 
 fn main() {
+    // Create a connection to the redis server.
+    let client = redis::Client::open("redis://127.0.0.1/").unwrap();
+    let mut conn = client.get_connection().unwrap();
+    conn.send_command("GET", [redis::StrArg("my_key")]);
+    match conn.read_response() {
+        redis::Data(value) => {
+            println!("Got value: {}", from_utf8(value).unwrap());
+        },
+        redis::RedisError(redis::ResponseError, msg) => {
+            fail!(format!("Redis command failed: {}", msg));
+        },
+        _ => {
+            println!("Failed to get value.");
+        }
+    }
+
+    // Setup the Iron chain.
     let mut chain = ChainBuilder::new(hello_world);
     chain.link_before(ResponseTime);
     chain.link_after(ResponseTime);
     Iron::new(chain).listen(Ipv4Addr(127, 0, 0, 1), 3000);
+
     println!("On 3000");
 }
 
