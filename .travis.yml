@@ -1,0 +1,20 @@
+language: rust
+os:
+    - linux
+    - osx
+env:
+    global:
+        - secure: j6zAJhNExLUw+J8hr1M9//m52ovHtHWCFgOjULKYFUDywvdSh2uivZUI6INDfq4eWxLtX8lZP/HhqUjPERtkCZ+3y8xXMxAxxRmiWlOS6AO08wwZAxzBnX+wlZ6vwkdkv+OzWh8Zst+F7Ebz0geEEoiGUWEi3sr+ErQ+99BR4u4=
+        - LD_LIBRARY_PATH: /usr/local/lib
+before_script:
+    - rustc -v
+    - cargo -V
+script:
+    - cargo build -v
+    - cargo test -v
+    - cargo doc -v
+after_success:
+    # Temporary fix for Rust-CI
+    - cp -R target/doc doc
+    - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
+    - rm -r doc
