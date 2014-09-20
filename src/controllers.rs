@@ -49,7 +49,9 @@ pub fn post_note(request: &Request, response: &mut Response) {
 }
 
 pub fn get_note(request: &Request, response: &mut Response) {
-    let code = request.params.get(&"code".to_string());
+    response.set_content_type("text/plain");
+
+    let code = request.params.index(&"code".to_string());
 
     let notes = Note::all();
     let mut notes = notes.iter().filter(|&x| &x.code == code);
