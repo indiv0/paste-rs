@@ -3,6 +3,7 @@ extern crate nickel;
 extern crate mysql;
 extern crate serialize;
 extern crate time;
+extern crate url;
 
 use std::io::net::ip::Ipv4Addr;
 use nickel::{

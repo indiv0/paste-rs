@@ -1,5 +1,3 @@
-use std::slice::Chunks;
-use std::iter::Iterator;
 use http::status::NotFound;
 use nickel::{
     Action,
@@ -12,6 +10,7 @@ use nickel::{
     Response,
 };
 use time;
+use url::percent_encoding;
 
 use note::{
     Note,
@@ -22,34 +21,30 @@ use util;
 
 pub fn post_note(request: &Request, response: &mut Response) {
     response.set_content_type("application/x-www-form-urlencoded");
+
     let body = request.origin.body.as_slice();
-    let body = body.split('&');
-    let mut body = body.filter(|x| x.as_slice().starts_with("data"));
-    let body = body.collect::<Vec<&str>>();
-    let body = body.index(&0);
-    let mut body = body.split('=').map(|x| x.to_string());
-    let body = body.collect::<Vec<String>>();
-    let body = body.index(&1);
-
     println!("{}", body);
-
-    let form = match request.json_as::<NoteForm>() {
-        Some(form) => form,
-        None       => {
+    let data = match body.split('&')
+                         .filter(|x| x.as_slice()
+                                      .starts_with("data"))
+                         .next() {
+        Some(x) => match x.split('=').skip(1).next() {
+            Some(value) => percent_encoding::percent_decode(value.as_bytes()),
+            None        => {
+                response.send(r#"{ "error": "failed to process form" }"#);
+                return
+            }
+        },
+        None    => {
             response.send(r#"{ "error": "failed to process form" }"#);
             return
         }
     };
 
-    let data = match form.data {
-        Some(data) => data,
-        None       => {
-            response.send(r#"{ "error": "data is required" }"#);
-            return
-        }
-    };
+    println!("{}", data);
+
     let code = util::random_string(settings::RANDOM_CODE_LENGTH);
-    let mut note = Note::new(0, code.clone(), time::now_utc().to_timespec(), data);
+    let mut note = Note::new(0, code.clone(), time::now_utc().to_timespec(), data.to_string());
 
     Note::insert(&mut note);
 
