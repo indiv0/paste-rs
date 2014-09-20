@@ -8,14 +8,14 @@ authors = [ "Nikita Pekin <contact@nikitapek.in>" ]
 
 name = "paste"
 
-[dependencies.iron]
+[dependencies.nickel]
 
-git = "https://github.com/iron/iron"
-
-[dependencies.redis-rs]
-
-git = "https://github.com/mitsuhiko/redis-rs"
+git = "https://github.com/nickel-org/nickel.rs"
 
 [dependencies.url]
 
 git = "https://github.com/servo/rust-url"
+
+[dependencies.mysql]
+
+git = "https://github.com/Indiv0/rust-mysql-simple"
