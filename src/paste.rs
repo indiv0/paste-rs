@@ -1,43 +1,50 @@
+extern crate http;
 extern crate nickel;
 extern crate mysql;
+extern crate serialize;
 extern crate time;
 
 use std::io::net::ip::Ipv4Addr;
 use nickel::{
+    IntoErrorHandler,
     Nickel,
-    Request,
-    Response,
 };
 
 use database::Database;
 
+mod controllers;
 mod database;
 mod note;
 mod settings;
-mod result;
+mod util;
 
 fn main() {
     // Initialize database connection.
-    let database = Database::new(settings::DATABASE_USERNAME.to_string());
+    let database = Database::new();
+    if settings::CREATE_DATABASE {
+        println!("Creating database");
+        match database.create() {
+            Ok(_) => println!("Initialized database"),
+            Err(e) => fail!("Failed to initialize database: {}", e)
+        }
+    }
 
-    // Initialize webserver.
+    // Create web server.
     let mut server = Nickel::new();
+    let mut router = Nickel::router();
 
-    fn a_handler(_request: &Request, response: &mut Response) {
-        response.send("hello world");
-    }
+    // Routes.
+    router.get("/",      controllers::get_home);
+    router.get("/:code", controllers::get_note);
+    router.post("/",     controllers::post_note);
 
-    fn get_note(request: &Request, response: &mut Response) {
-        let noteid = request.params.get(&"noteid".to_string());
+    // Middleware.
+    server.utilize(Nickel::json_body_parser());
+    server.utilize(router);
 
-        let note = database.get_note(noteid);
-
-        response.send(noteid.as_slice());
-        response.send("test");
-    }
-
-    server.get("/", a_handler);
-    server.get("/note/:noteid", get_note);
+    // Error handling.
+    server.handle_error(IntoErrorHandler::from_fn(controllers::custom_404));
+    
+    // Start web server.
     server.listen(Ipv4Addr(127, 0, 0, 1), 3000);
-    println!("Server listening on 3000.");
 }

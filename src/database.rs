@@ -1,63 +1,45 @@
 use mysql::conn::MyOpts;
 use mysql::conn::pool::MyPool;
-use mysql::value::from_value;
+use mysql::error::MyError;
 use std::default::Default;
-use time::Timespec;
 
-use note::Note;
-use result::{
-    PasteError,
-    NoResultsError,
-};
+use settings;
 
 pub struct Database {
-    pool: MyPool
+    opts: MyOpts
 }
 
 impl Database {
-    pub fn new(user: String) -> Database {
+    pub fn new() -> Database {
         let opts = MyOpts {
-            user: Some(user),
+            user: Some(settings::DATABASE_USERNAME.to_string()),
+            pass: Some(settings::DATABASE_PASSWORD.to_string()),
+            db_name: Some(settings::DATABASE_NAME.to_string()),
             ..Default::default()
         };
 
-        let pool = MyPool::new(opts).unwrap();
-
-        pool.query("CREATE DATABASE IF NOT EXISTS paste");
-        pool.query("USE paste");
-        pool.query("CREATE TABLE person(
-                        id INT NOT NULL AUTO_INCREMENT PRIMARY_KEY,
-                        code TEXT,
-                        time_created TIMESTAMP,
-                        data BLOB
-                    );");
-
         Database {
-            pool: pool
+            opts: opts
         }
     }
 
-    // TODO: Replace with Result value.
-    pub fn insert_note(&self, note: Note) -> () {
-        self.pool.prepare("INSERT INTO person (code, time_created, data)
-                           VALUES (?, ?, ?);")
-            .and_then(|mut stmt| {
-                stmt.execute(&[&note.code, &note.time_created, &note.data]).and(Ok(()))
-            });
+    pub fn connect(&self) -> MyPool {
+        MyPool::new(self.opts.clone()).unwrap()
     }
 
-    // TODO: Replace with Result value.
-    pub fn get_note(&self, code: String) -> Result<Note, PasteError> {
-        self.pool.prepare("SELECT id, code, time_created, data FROM paste WHERE code = ?")
-            .and_then(|mut stmt| {
-                let row = stmt.execute(&[&code]).unwrap().next().unwrap().unwrap();
-                Ok(Note::new(from_value(&row[0]),
-                              from_value(&row[1]),
-                              from_value(&row[2]),
-                              from_value(&row[3])))
-            }
-        );
+    /// Sets up the database and table required.
+    /// For this to work, priveleged user and password must be specified in settings.
+    /// Additionally, no database name must be specified.
+    pub fn create(&self) -> Result<(), MyError> {
+        let conn = self.connect();
 
-        return Err(PasteError::new("Failed to find note", NoResultsError));
+        try!(conn.query("CREATE DATABASE IF NOT EXISTS paste"));
+        try!(conn.query("USE paste"));
+        try!(conn.query("CREATE TABLE IF NOT EXISTS paste (
+            id           INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            code         TEXT,
+            time_created TIMESTAMP,
+            data         BLOB)"));
+        Ok(())
     }
 }
