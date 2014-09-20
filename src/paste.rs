@@ -44,7 +44,7 @@ fn main() {
 
     // Error handling.
     server.handle_error(IntoErrorHandler::from_fn(controllers::custom_404));
-    
+
     // Start web server.
     server.listen(Ipv4Addr(127, 0, 0, 1), 3000);
 }
