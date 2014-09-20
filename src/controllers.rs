@@ -1,3 +1,5 @@
+use std::slice::Chunks;
+use std::iter::Iterator;
 use http::status::NotFound;
 use nickel::{
     Action,
@@ -18,12 +20,18 @@ use note::{
 use settings;
 use util;
 
-pub fn get_home(_request: &Request, response: &mut Response) {
-    response.send("hello world");
-}
-
 pub fn post_note(request: &Request, response: &mut Response) {
-    response.set_content_type("application/json");
+    response.set_content_type("application/x-www-form-urlencoded");
+    let body = request.origin.body.as_slice();
+    let body = body.split('&');
+    let mut body = body.filter(|x| x.as_slice().starts_with("data"));
+    let body = body.collect::<Vec<&str>>();
+    let body = body.index(&0);
+    let mut body = body.split('=').map(|x| x.to_string());
+    let body = body.collect::<Vec<String>>();
+    let body = body.index(&1);
+
+    println!("{}", body);
 
     let form = match request.json_as::<NoteForm>() {
         Some(form) => form,
