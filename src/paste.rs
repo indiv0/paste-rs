@@ -34,11 +34,12 @@ fn main() {
     let mut router = Nickel::router();
 
     // Routes.
-    router.get("/",      controllers::get_home);
+    //router.get("/",      controllers::get_home);
     router.get("/:code", controllers::get_note);
     router.post("/",     controllers::post_note);
 
     // Middleware.
+    server.utilize(Nickel::static_files("assets/"));
     server.utilize(Nickel::json_body_parser());
     server.utilize(router);
 

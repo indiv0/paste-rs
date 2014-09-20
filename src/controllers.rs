@@ -54,15 +54,16 @@ pub fn get_note(request: &Request, response: &mut Response) {
     let notes = Note::all();
     let mut notes = notes.iter().filter(|&x| &x.code == code);
 
-    let note = match notes.next() {
-        Some(note) => note,
-        None       => {
-            response.send("Failed to find note in database");
-            return
+    match notes.next() {
+        Some(note) => {
+            response.send(note.data.clone());
+        },
+        None => {
+            response.set_content_type("html");
+            response.origin.status = NotFound;
+            response.send("<h1>404 - Paste Not Found</h1>");
         }
     };
-
-    response.send(note.data.clone());
 }
 
 pub fn custom_404(err: &NickelError, _req: &Request, response: &mut Response) -> Result<Action, NickelError> {
