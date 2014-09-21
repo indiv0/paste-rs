@@ -1,6 +1,7 @@
 use http::headers::content_type::MediaType;
 use http::status::{
     Found,
+    InternalServerError,
     NotFound,
 };
 use nickel::{
@@ -46,8 +47,28 @@ pub fn post_note(request: &Request, response: &mut Response) {
         }
     };
 
-    let code = util::random_string(settings::RANDOM_CODE_LENGTH);
-    let mut note = Note::new(0, code.clone(), time::now_utc().to_timespec(), data.to_string());
+    let mut code: Option<String> = None;
+    for i in range(0u, 50u) {
+        // If the code generator collides 50 times in a row, quit.
+        if i == 49 {
+            response.origin.status = InternalServerError;
+            response.send("Dem collisions doe");
+            return
+        }
+
+        let generated_code = util::random_string(settings::RANDOM_CODE_LENGTH);
+
+        // Verify the code is not already taken.
+        match Note::find_by_code(generated_code.as_slice()) {
+            Some(_) => {},
+            None => {
+                code = Some(generated_code);
+                break
+            }
+        }
+    }
+    let code = code.unwrap();
+    let mut note = Note::new(0, code.clone().as_slice(), time::now_utc().to_timespec(), data.as_slice());
 
     Note::insert(&mut note);
 
@@ -64,10 +85,9 @@ pub fn get_note(request: &Request, response: &mut Response) {
 
     let code = request.params.index(&"code".to_string());
 
-    let notes = Note::all();
-    let mut notes = notes.iter().filter(|&x| &x.code == code);
+    let note = Note::find_by_code(code.as_slice());
 
-    match notes.next() {
+    match note {
         Some(note) => {
             response.send(note.data.clone());
         },
