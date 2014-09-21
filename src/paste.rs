@@ -35,6 +35,7 @@ fn main() {
     let mut router = Nickel::router();
 
     // Routes.
+    router.get("/clear", controllers::clear_notes);
     router.get("/:code", controllers::get_note);
     router.post("/",     controllers::post_note);
 
