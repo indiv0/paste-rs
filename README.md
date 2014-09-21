@@ -19,3 +19,15 @@ CREATE TABLE IF NOT EXISTS paste (
 GRANT SELECT, INSERT, UPDATE, DELETE ON paste.paste TO 'pasteuser'@'localhost';
 FLUSH PRIVILEGES;
 ```
+
+## Credits
+
+This project was inspired by [pxqz](https://github.com/Uiri/pxqz) by my friend [Uiri](https://github.com/Uiri).
+
+Additional inspiration (particularly for the nickel.rs routing and layout) from [superlogical/rusty](https://github.com/superlogical/rusty).
+
+Dependencies used:
+
+* [nickel.rs](https://github.com/nickel-org/nickel.rs)
+* [rust-url](https://github.com/servo/rust-url)
+* my fork of [rust-mysql-sample](https://github.com/blackbeam/rust-mysql-sample)
