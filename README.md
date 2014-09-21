@@ -30,4 +30,4 @@ Dependencies used:
 
 * [nickel.rs](https://github.com/nickel-org/nickel.rs)
 * [rust-url](https://github.com/servo/rust-url)
-* my fork of [rust-mysql-sample](https://github.com/blackbeam/rust-mysql-sample)
+* my fork of [rust-mysql-simple](https://github.com/blackbeam/rust-mysql-simple)
