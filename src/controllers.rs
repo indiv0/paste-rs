@@ -1,5 +1,8 @@
 use http::headers::content_type::MediaType;
-use http::status::NotFound;
+use http::status::{
+    Found,
+    NotFound,
+};
 use nickel::{
     Action,
     Continue,
@@ -11,7 +14,10 @@ use nickel::{
     Response,
 };
 use time;
-use url::percent_encoding;
+use url::{
+    percent_encoding,
+    Url,
+};
 
 use note::{
     Note,
@@ -46,7 +52,8 @@ pub fn post_note(request: &Request, response: &mut Response) {
 
     Note::insert(&mut note);
 
-    response.send(format!("/{}", code));
+    response.origin.status = Found;
+    response.origin.headers.location = Some(Url::parse(format!("{}/{}", settings::BASE_URL, code).as_slice()).unwrap());
 }
 
 pub fn get_note(request: &Request, response: &mut Response) {
@@ -55,7 +62,6 @@ pub fn get_note(request: &Request, response: &mut Response) {
         subtype: "plain".to_string(),
         parameters: vec!((String::from_str("charset"), String::from_str("UTF-8")))
     });
-    //response.set_content_type("html;charset=UTF-8");
 
     let code = request.params.index(&"code".to_string());
 
