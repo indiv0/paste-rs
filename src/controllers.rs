@@ -13,7 +13,6 @@ use nickel::{
     Response,
 };
 use time;
-use std::time::duration::Duration;
 use url::{
     percent_encoding,
     Url,
@@ -78,17 +77,6 @@ pub fn get_note(request: &Request, response: &mut Response) {
             response.send("<h1>404 - Paste Not Found</h1>");
         }
     };
-}
-
-pub fn clear_notes(_request: &Request, response: &mut Response) {
-    let notes = Note::all();
-    let mut notes = notes.iter().filter(|&x| time::now_utc().to_timespec() - x.time_created > Duration::seconds(10));
-    for note in notes {
-        println!("Age: {}, {}, {}", (time::now_utc().to_timespec() - note.time_created).num_seconds(), time::now_utc().to_timespec(), note.time_created);
-        Note::delete(note);
-    }
-
-    response.send("Cleared");
 }
 
 pub fn custom_404(err: &NickelError, _req: &Request, response: &mut Response) -> Result<Action, NickelError> {

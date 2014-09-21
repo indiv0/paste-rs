@@ -39,15 +39,6 @@ impl Note {
         }
     }
 
-    pub fn delete(note: &Note) {
-        let conn = Database::new().connect();
-        let mut stmt = conn.prepare("
-            DELETE FROM paste
-            WHERE id = ?").unwrap();
-
-        stmt.execute(&[&note.id]).unwrap();
-    }
-
     pub fn all() -> Vec<Note> {
         let mut notes: Vec<Note> = Vec::new();
         let conn = Database::new().connect();
