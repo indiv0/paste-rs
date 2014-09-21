@@ -1,27 +1,54 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-    <title>paste-rs</title>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>paste-rs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+    <![endif]-->
 </head>
 <body>
-    <div style="text-align:center">
-        <h1>paste-rs</h1>
-        <form method="post" action="/">
-            <textarea name="data" cols="80" rows="24"></textarea>
-            <br>
-            <input type="submit" value="Paste!">
-        </form>
+    <div id="header-container">
+        <header class="wrapper clearfix">
+            <h1 id="title">paste-rs</h1>
+            <h2>A paste tool written entirely in rust</h2>
+        </header>
+    </div>
+    <div id="main-container">
+        <div id="main" class="wrapper clearfix">
+            <div style="text-align:center">
+                <form method="post" action="/">
+                    <textarea name="data" cols="80" rows="24"></textarea>
+                    <br>
+                    <input type="submit" value="Paste!">
+                </form>
+            </div>
+
+            <p>I've also written a command-line tool in Python3.
+            The paste is input via stdin and an url to the paste (in text/plain) is returned on stdout.
+            The script is available <a href="http://p.nikitapek.in/script">here</a> or you can install it by running:</p>
+            <pre>
+curl p.nikitapek.in/script > pasters; chmod 755 pasters; su -c "mv pasters /usr/local/bin"
+            </pre>
+            <p>to download it and put it in your path (do you trust me :) ?).</p>
+        </div>
     </div>
 
-    <p>I've also written a command-line tool in Python3.
-    The paste is input via stdin and an url to the paste (in text/plain) is returned on stdout.
-    The script is available <a href="http://p.nikitapek.in/script">here</a> or you can install it by running:</p>
-    <pre>
-        curl p.nikitapek.in/script > pasters; chmod 755 pasters; su -c "mv pasters /usr/local/bin"
-    </pre>
-    <p>to download it and put it in your path (do you trust me :) ?).</p>
-    <br>
-    <p>This entire system is written in <a href="http://rust-lang.org/">rust</a>.
-    For more information (and the source), check out this project's GitHub page <a href="https://github.com/Indiv0/paste-rs">here</a>.</p>
+    <div id="about-container">
+        <div class="wrapper">
+            <p>This entire system is written in <a href="http://rust-lang.org/">rust</a>.
+            For more information (and the source), check out this project's GitHub page <a href="https://github.com/Indiv0/paste-rs">here</a>.</p>
+        </div>
+    </div>
 </body>
 </html>
