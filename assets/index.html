@@ -4,11 +4,24 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1>Paste</h1>
-    <form method="post" action="/" enctype="x-www-form-urlencoded">
-        <textarea name="data" cols="80" rows="24"></textarea>
-        <br>
-        <input type="submit" value="Paste!">
-    </form>
+    <div style="text-align:center">
+        <h1>Paste</h1>
+        <form method="post" action="/">
+            <textarea name="data" cols="80" rows="24"></textarea>
+            <br>
+            <input type="submit" value="Paste!">
+        </form>
+    </div>
+
+    <p>I've also written a command-line tool in Python3.
+    The paste is input via stdin and an url to the paste (in text/plain) is returned on stdout.
+    The script is available <a href="http://p.nikitapek.in/script">here</a> or you can install it by running:</p>
+    <pre>
+        curl p.nikitapek.in/script > paste; chmod 755 paste; su -c "mv paste /usr/local/bin"
+    </pre>
+    <p>to download it and put it in your path (do you trust me :) ?).</p>
+    <br>
+    <p>This entire system is written in <a href="http://rust-lang.org/">rust</a>.
+    For more information (and the source), check out this project's GitHub page <a href="https://github.com/Indiv0/paste">here</a>.</p>
 </body>
 </html>
