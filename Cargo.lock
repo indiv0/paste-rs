@@ -3,7 +3,7 @@ name = "paste"
 version = "0.0.0"
 dependencies = [
  "mysql 0.0.0 (git+https://github.com/Indiv0/rust-mysql-simple#a390eb7a70584f7801fa994dbaaa2fe15fc35301)",
- "nickel 0.1.0 (git+https://github.com/nickel-org/nickel.rs#69a58b7f10ef73fbb157125b64784a5674b86c16)",
+ "nickel 0.1.0 (git+https://github.com/nickel-org/nickel.rs#8c8b656700ffb41a498d0e6806817c32066abab1)",
  "url 0.1.0 (git+https://github.com/servo/rust-url#bfdf809365600a7941a77524f9bb065886de3379)",
 ]
 
@@ -42,7 +42,7 @@ dependencies = [
 [[package]]
 name = "nickel"
 version = "0.1.0"
-source = "git+https://github.com/nickel-org/nickel.rs#69a58b7f10ef73fbb157125b64784a5674b86c16"
+source = "git+https://github.com/nickel-org/nickel.rs#8c8b656700ffb41a498d0e6806817c32066abab1"
 dependencies = [
  "anymap 0.9.0 (git+https://github.com/chris-morgan/anymap.git#ad7ea81ba60233358fe3a025f08ee05537c3eb4d)",
  "http 0.1.0-pre (git+https://github.com/chris-morgan/rust-http.git#c1d601c1150ec6e10067dc0e022590277985b785)",

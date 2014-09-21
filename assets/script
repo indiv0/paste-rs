@@ -6,8 +6,8 @@ import io
 import sys
 import os
 
-URL = "127.0.0.1"
-PORT = "3000"
+URL = "p.nikitapek.in"
+PORT = "80"
 
 data_reader = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
 lines = ''.join(data_reader.readlines())
