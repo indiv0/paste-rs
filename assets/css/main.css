@@ -74,6 +74,24 @@ header {
     margin: 0px 5%;
 }
 
+textarea {
+    width: 100%;
+    border-top: 2px solid #ccc;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+}
+
+textarea:focus {
+    outline: 0;
+    border-color: #4697e4;
+}
+
+.input {
+    padding: 1px;
+    margin: 0 0 10px 0;
+}
+
 
 /* ==========================================================================
    Media Queries
