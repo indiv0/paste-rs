@@ -8,7 +8,6 @@ use nickel::{
     Continue,
     ErrorWithStatusCode,
     Halt,
-    JsonBody,
     NickelError,
     Request,
     Response,
@@ -19,10 +18,7 @@ use url::{
     Url,
 };
 
-use note::{
-    Note,
-    NoteForm,
-};
+use note::Note;
 use settings;
 use util;
 
@@ -30,7 +26,10 @@ pub fn post_note(request: &Request, response: &mut Response) {
     response.set_content_type("application/x-www-form-urlencoded");
 
     let body = request.origin.body.as_slice();
-    let data = match body.split('&')
+    // Replace '+' with ' ', as percent_encoding doesn't seem to be able to handle it.
+    let body = body.replace("+", " ");
+    let data = match body.as_slice()
+                         .split('&')
                          .filter(|x| x.as_slice()
                                       .starts_with("data"))
                          .next() {

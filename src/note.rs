@@ -11,11 +11,6 @@ pub struct Note {
     pub data: String
 }
 
-#[deriving(Encodable, Decodable)]
-pub struct NoteForm {
-    pub data: Option<String>
-}
-
 impl Note {
     pub fn new(id: i32, code: String, time_created: Timespec, data: String) -> Note {
         Note {
