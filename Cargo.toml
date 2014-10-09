@@ -16,6 +16,6 @@ git = "https://github.com/nickel-org/nickel.rs"
 
 git = "https://github.com/servo/rust-url"
 
-[dependencies.mysql]
+[dependencies.redis-rs]
 
-git = "https://github.com/Indiv0/rust-mysql-simple"
+git = "https://github.com/mitsuhiko/redis-rs"

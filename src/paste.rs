@@ -7,8 +7,8 @@ extern crate url;
 
 use std::io::net::ip::Ipv4Addr;
 use nickel::{
-    IntoErrorHandler,
     Nickel,
+    StaticFilesHandler,
 };
 
 use database::Database;
@@ -39,11 +39,11 @@ fn main() {
     router.post("/",     controllers::post_note);
 
     // Middleware.
-    server.utilize(Nickel::static_files("assets/"));
+    server.utilize(StaticFilesHandler::new("assets/"));
     server.utilize(router);
 
     // Error handling.
-    server.handle_error(IntoErrorHandler::from_fn(controllers::custom_404));
+    server.handle_error(controllers::custom_404);
 
     // Start web server.
     server.listen(Ipv4Addr(127, 0, 0, 1), 3000);

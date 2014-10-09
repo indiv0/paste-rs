@@ -2,69 +2,81 @@
 name = "paste"
 version = "0.0.0"
 dependencies = [
- "mysql 0.0.0 (git+https://github.com/Indiv0/rust-mysql-simple#a390eb7a70584f7801fa994dbaaa2fe15fc35301)",
- "nickel 0.1.0 (git+https://github.com/nickel-org/nickel.rs#8c8b656700ffb41a498d0e6806817c32066abab1)",
- "url 0.1.0 (git+https://github.com/servo/rust-url#bfdf809365600a7941a77524f9bb065886de3379)",
+ "nickel 0.1.0 (git+https://github.com/nickel-org/nickel.rs#75e88467182cd78c35c1252d510136d32ad82c13)",
+ "redis-rs 0.3.0 (git+https://github.com/mitsuhiko/redis-rs#c5fa80280c0fa664a6200f5d6e7ce85ee8860ec9)",
+ "url 0.1.0 (git+https://github.com/servo/rust-url#55b18b796ef2cef5490069dd450c60c2cc2c0c1b)",
 ]
 
 [[package]]
 name = "anymap"
 version = "0.9.0"
-source = "git+https://github.com/chris-morgan/anymap.git#ad7ea81ba60233358fe3a025f08ee05537c3eb4d"
+source = "git+https://github.com/chris-morgan/anymap.git#512885e502985a30a5b64e881f6f3af5a901d301"
 
 [[package]]
 name = "encoding"
 version = "0.1.0"
-source = "git+https://github.com/lifthrasiir/rust-encoding#35f0d70f65f73ba16f296f9ec675eddee661ba79"
+source = "git+https://github.com/lifthrasiir/rust-encoding#ff55916fec8b5bf8667a74d5a060c8c951f28fe0"
+
+[[package]]
+name = "groupable"
+version = "0.1.0"
+source = "git+https://github.com/Ryman/groupable-rs#ae2a086edb0b10a7e5f143405d072871e75a118e"
 
 [[package]]
 name = "http"
 version = "0.1.0-pre"
-source = "git+https://github.com/chris-morgan/rust-http.git#c1d601c1150ec6e10067dc0e022590277985b785"
+source = "git+https://github.com/chris-morgan/rust-http.git#5bcd379e435b05e7b30bfb403d176fef01937038"
 dependencies = [
- "openssl 0.0.0 (git+https://github.com/sfackler/rust-openssl.git#a495465b75ffb18ff2303c5a11a103e00a15a13d)",
- "url 0.1.0 (git+https://github.com/servo/rust-url#bfdf809365600a7941a77524f9bb065886de3379)",
-]
-
-[[package]]
-name = "lazy_static"
-version = "0.1.0"
-source = "git+https://github.com/Kimundi/lazy-static.rs#e62a65372f1dd9019e37eb9381d819edff80e360"
-
-[[package]]
-name = "mysql"
-version = "0.0.0"
-source = "git+https://github.com/Indiv0/rust-mysql-simple#a390eb7a70584f7801fa994dbaaa2fe15fc35301"
-dependencies = [
- "lazy_static 0.1.0 (git+https://github.com/Kimundi/lazy-static.rs#e62a65372f1dd9019e37eb9381d819edff80e360)",
+ "openssl 0.0.0 (git+https://github.com/sfackler/rust-openssl.git#19eab0e7d729159104a0959c7c1209f1e8951db2)",
+ "url 0.1.0 (git+https://github.com/servo/rust-url#55b18b796ef2cef5490069dd450c60c2cc2c0c1b)",
 ]
 
 [[package]]
 name = "nickel"
 version = "0.1.0"
-source = "git+https://github.com/nickel-org/nickel.rs#8c8b656700ffb41a498d0e6806817c32066abab1"
+source = "git+https://github.com/nickel-org/nickel.rs#75e88467182cd78c35c1252d510136d32ad82c13"
 dependencies = [
- "anymap 0.9.0 (git+https://github.com/chris-morgan/anymap.git#ad7ea81ba60233358fe3a025f08ee05537c3eb4d)",
- "http 0.1.0-pre (git+https://github.com/chris-morgan/rust-http.git#c1d601c1150ec6e10067dc0e022590277985b785)",
- "rust-mustache 0.3.0 (git+https://github.com/erickt/rust-mustache.git#687d8fa41f998ec73c891de3f8ef41b4d3dc7b32)",
- "url 0.1.0 (git+https://github.com/servo/rust-url#bfdf809365600a7941a77524f9bb065886de3379)",
+ "anymap 0.9.0 (git+https://github.com/chris-morgan/anymap.git#512885e502985a30a5b64e881f6f3af5a901d301)",
+ "groupable 0.1.0 (git+https://github.com/Ryman/groupable-rs#ae2a086edb0b10a7e5f143405d072871e75a118e)",
+ "http 0.1.0-pre (git+https://github.com/chris-morgan/rust-http.git#5bcd379e435b05e7b30bfb403d176fef01937038)",
+ "nickel_macros 0.0.1 (git+https://github.com/nickel-org/nickel.rs#75e88467182cd78c35c1252d510136d32ad82c13)",
+ "rust-mustache 0.3.0 (git+https://github.com/pythonesque/rust-mustache.git#af44dbee522ea1eec931fbc9946c7621b754c126)",
+ "url 0.1.0 (git+https://github.com/servo/rust-url#55b18b796ef2cef5490069dd450c60c2cc2c0c1b)",
 ]
+
+[[package]]
+name = "nickel_macros"
+version = "0.0.1"
+source = "git+https://github.com/nickel-org/nickel.rs#75e88467182cd78c35c1252d510136d32ad82c13"
 
 [[package]]
 name = "openssl"
 version = "0.0.0"
-source = "git+https://github.com/sfackler/rust-openssl.git#a495465b75ffb18ff2303c5a11a103e00a15a13d"
+source = "git+https://github.com/sfackler/rust-openssl.git#19eab0e7d729159104a0959c7c1209f1e8951db2"
+
+[[package]]
+name = "redis-rs"
+version = "0.3.0"
+source = "git+https://github.com/mitsuhiko/redis-rs#c5fa80280c0fa664a6200f5d6e7ce85ee8860ec9"
+dependencies = [
+ "rust-crypto 0.1.0 (git+https://github.com/DaGenix/rust-crypto.git#16083e31b7d872a671bf580254dc8e3b95a9282f)",
+]
+
+[[package]]
+name = "rust-crypto"
+version = "0.1.0"
+source = "git+https://github.com/DaGenix/rust-crypto.git#16083e31b7d872a671bf580254dc8e3b95a9282f"
 
 [[package]]
 name = "rust-mustache"
 version = "0.3.0"
-source = "git+https://github.com/erickt/rust-mustache.git#687d8fa41f998ec73c891de3f8ef41b4d3dc7b32"
+source = "git+https://github.com/pythonesque/rust-mustache.git#af44dbee522ea1eec931fbc9946c7621b754c126"
 
 [[package]]
 name = "url"
 version = "0.1.0"
-source = "git+https://github.com/servo/rust-url#bfdf809365600a7941a77524f9bb065886de3379"
+source = "git+https://github.com/servo/rust-url#55b18b796ef2cef5490069dd450c60c2cc2c0c1b"
 dependencies = [
- "encoding 0.1.0 (git+https://github.com/lifthrasiir/rust-encoding#35f0d70f65f73ba16f296f9ec675eddee661ba79)",
+ "encoding 0.1.0 (git+https://github.com/lifthrasiir/rust-encoding#ff55916fec8b5bf8667a74d5a060c8c951f28fe0)",
 ]
 

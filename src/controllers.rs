@@ -9,6 +9,7 @@ use nickel::{
     Continue,
     ErrorWithStatusCode,
     Halt,
+    MiddlewareResult,
     NickelError,
     Request,
     Response,
@@ -99,12 +100,12 @@ pub fn get_note(request: &Request, response: &mut Response) {
     };
 }
 
-pub fn custom_404(err: &NickelError, _req: &Request, response: &mut Response) -> Result<Action, NickelError> {
+pub fn custom_404(err: &NickelError, _req: &Request, response: &mut Response) -> MiddlewareResult {
     match err.kind {
         ErrorWithStatusCode(NotFound) => {
-            response.set_content_type("html");
-            response.origin.status = NotFound;
-            response.send("<h1>404 - Paste Not Found</h1>");
+            response.content_type("html")
+                    .status_code(NotFound)
+                    .send("<h1>404 - Paste Not Found</h1>");
             Ok(Halt)
         },
         _ => Ok(Continue)
